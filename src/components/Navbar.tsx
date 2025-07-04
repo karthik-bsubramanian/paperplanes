@@ -128,9 +128,6 @@ export const Navbar = ({ handleOnClick, publishing }: Props) => {
               className="flex"
               onClick={() => {
                 navigate("/home/write");
-                setTimeout(() => {
-                  window.location.reload(); // Force reload after navigation
-                }, 0);
               }}
             >
               <FilePen strokeWidth={1} className="p-0.2 " />

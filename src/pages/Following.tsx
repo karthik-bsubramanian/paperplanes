@@ -152,7 +152,7 @@ function Card({ id, image, name }: cardProps) {
   const description = "Description Yet to be added";
   return (
     <div className="flex items-start gap-2 mt-8">
-      <img src={image} alt="" className="w-10 h-10 rounded-full" />
+      <img src={image} alt="" className="w-10 h-10 rounded-full object-cover" />
       <div className="min-w-50">
         <button
           onClick={() => {
