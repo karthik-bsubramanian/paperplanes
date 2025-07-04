@@ -50,10 +50,10 @@ export function Following({ userid }: followingProps) {
             />
           ))
         ) : (
-          <div className="w-full h-50 flex justify-center items-center">Following list is empty!.</div>
+          <div className="w-full h-40 flex justify-center text-sm items-center font-semibold">Following list is empty!</div>
         )
       ) : (
-        <div className="w-full h-50 flex justify-center items-center">loading...</div>
+        <div className="w-full h-40 flex justify-center text-sm items-center font-semibold">loading...</div>
       )}
     </>
   );

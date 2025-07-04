@@ -156,8 +156,8 @@ const { data: publishedBlogs = [], isLoading: publishedBlogsLoading } =useQuery<
                   {publishedBlogs.map((blog)=>(
                 <PublishedBlogsCard key={blog.id} blogId={blog.id} cardType={blog.topic} firstimageurl={blog.image} date={blog.date} title={blog.title}/>
             ))}
-            </div>:<div className="w-full h-50 flex flex-col gap-3 mt-5 justify-center items-center">
-              <h1 className="font-semibold text-xl">No published Blogs Yet!</h1>
+            </div>:<div className="w-full h-40 flex flex-col gap-3 justify-center items-center">
+              <h1 className="text-sm font-semibold">No published Blogs Yet!</h1>
               {paramid === currentUserId.id && (<>
               <h3 className="text-sm">what's resisting you, Start writing one now</h3>
               <button className="rounded-3xl shadow-[0_0_0_0.5px_rgba(0,0,0,0.4)] font-seimibold px-2 p-2 mt-2 cursor-pointer">Write now!</button>
@@ -167,9 +167,9 @@ const { data: publishedBlogs = [], isLoading: publishedBlogsLoading } =useQuery<
         )}
 
         {activeTab === "About" && (
-          <div className="w-100 mx-auto mt-40">
-            <h1 className="flex justify-center text-xl font-semibold px-10">
-              {paramid === currentUserId.id?"Tell the world about yourself":"Description Not added yet"}
+          <div className="w-100 mx-auto">
+            <h1 className="flex justify-center text-sm mt-17 font-semibold">
+              {paramid === currentUserId.id?<h1>Tell the world about yourself</h1>:<h1>Description Not added yet</h1>}
             </h1>
             <br />
             {paramid===currentUserId.id && <>
