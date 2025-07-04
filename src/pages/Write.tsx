@@ -1,4 +1,4 @@
-import { SimpleEditor } from "../../@/components/tiptap-templates/simple/simple-editor";
+import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
 import "@/styles/_keyframe-animations.scss";
 import "@/styles/_variables.scss";
 import { Navbar } from "../components/Navbar";
@@ -13,7 +13,7 @@ import { Loading } from "../components/Loading";
 import { useHydratedUser } from "../hooks/HydratedUser";
 
 export function Write() {
-    const { user, hydrated } = useHydratedUser();
+  const { user, hydrated } = useHydratedUser();
 
   const [jsonData, setJsonData] = useState<JSONContent | null>(null);
   const topic = useAtomValue(topicState);
@@ -70,7 +70,7 @@ export function Write() {
     document.title = "New story - PaperPlanes";
   }, []);
 
-  if (!hydrated) return <Loading/>
+  if (!hydrated) return <Loading />;
   if (!user) return <Navigate to="/" replace />;
 
   return (

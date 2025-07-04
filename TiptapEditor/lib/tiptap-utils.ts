@@ -152,7 +152,7 @@ export const handleImageUpload = async (
   }
   const filePath = `${Date.now()}-${file.name}`;
 
-  const { data, error } = await supabase.storage
+  const { error } = await supabase.storage
     .from("blog-images")
     .upload(filePath, file);
 

@@ -12,10 +12,10 @@ import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
 import { Underline } from "@tiptap/extension-underline";
 
-import { Link } from "../../@/components/tiptap-extension/link-extension";
-import { Selection } from "../../@/components/tiptap-extension/selection-extension";
-import { TrailingNode } from "../../@/components/tiptap-extension/trailing-node-extension";
-import { ImageUploadNode } from "../../@/components/tiptap-node/image-upload-node/image-upload-node-extension";
+import { Link } from "@/components/tiptap-extension/link-extension";
+import { Selection } from "@/components/tiptap-extension/selection-extension";
+import { TrailingNode } from "@/components/tiptap-extension/trailing-node-extension";
+import { ImageUploadNode } from "@/components/tiptap-node/image-upload-node/image-upload-node-extension";
 
 import { Navbar } from "../components/Navbar";
 import { useEffect, useState } from "react";
@@ -30,10 +30,9 @@ import { useHydratedUser } from "../hooks/HydratedUser";
 export function Blog() {
   const { user, hydrated } = useHydratedUser();
 
-  
   const [content, setContent] = useState<JSONContent | null>(null);
   const [searchParams] = useSearchParams();
-  const postId = searchParams.get('postid')
+  const postId = searchParams.get("postid");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,11 +79,11 @@ export function Blog() {
     }
   }, [editor, content]);
 
-  if (!hydrated) return <Loading/>
+  if (!hydrated) return <Loading />;
   if (!user) return <Navigate to="/" replace />;
 
   if (!content || !editor) {
-    return <Loading/>
+    return <Loading />;
   }
 
   return (
@@ -92,40 +91,44 @@ export function Blog() {
       <Navbar handleOnClick={() => {}} />
       <div className="grid grid-cols-3">
         <div className="flex justify-end w-full col-span-2">
-          
-        <div className="flex justify-end max-w-2xl prose p-4">
-
-          <EditorContent editor={editor} />
-        </div>
+          <div className="flex justify-end max-w-2xl prose p-4">
+            <EditorContent editor={editor} />
+          </div>
         </div>
         <div className="flex col-span-1 flex-col justify-start p-8 pl-20">
           <h1 className="text-xl text-green font-semibold">Published By:</h1>
-          <Card id={content.author.id} image={content.author.image} name={content.author.name}/>
+          <Card
+            id={content.author.id}
+            image={content.author.image}
+            name={content.author.name}
+          />
         </div>
       </div>
     </div>
   );
 }
 
-type cardProps={
+type cardProps = {
   id: string;
   image: string;
   name: string;
-}
-function Card({id,image,name}: cardProps) {
+};
+function Card({ id, image, name }: cardProps) {
   const navigate = useNavigate();
 
-  const description =
-    "Description Yet to be added";
+  const description = "Description Yet to be added";
   return (
     <div className="flex items-start gap-2 mt-5">
-      <img
-        src={image}
-        alt=""
-        className="w-10 h-10 rounded-full"
-      />
+      <img src={image} alt="" className="w-10 h-10 rounded-full" />
       <div className="min-w-50">
-        <button onClick={()=>{navigate(`/profile?id=${id}`)}} className="text-md cursor-pointer font-semibold">{name}</button>
+        <button
+          onClick={() => {
+            navigate(`/profile?id=${id}`);
+          }}
+          className="text-md cursor-pointer font-semibold"
+        >
+          {name}
+        </button>
         <p className="text-sm font-light line-clamp-2">
           {truncateWords(description, 14)}
         </p>

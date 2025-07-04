@@ -1,5 +1,10 @@
 import * as React from "react";
-import { Editor, EditorContent, EditorContext, useEditor, type JSONContent } from "@tiptap/react";
+import {
+  EditorContent,
+  EditorContext,
+  useEditor,
+  type JSONContent,
+} from "@tiptap/react";
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit";
@@ -71,9 +76,9 @@ import { useCursorVisibility } from "../../../hooks/use-cursor-visibility";
 import { handleImageUpload, MAX_FILE_SIZE } from "../../../lib/tiptap-utils";
 
 // --- Styles ---
-import "../../tiptap-templates/simple/simple-editor.scss";
+import "./simple-editor.scss";
 
-import content from "../../tiptap-templates/simple/data/content.json";
+import content from "./data/content.json";
 
 const MainToolbarContent = ({
   onHighlighterClick,
@@ -180,11 +185,11 @@ const MobileToolbarContent = ({
   </>
 );
 
-type Props ={
-  handleData: (data: JSONContent)=>void;
-}
+type Props = {
+  handleData: (data: JSONContent) => void;
+};
 
-export function SimpleEditor({handleData}:Props) {
+export function SimpleEditor({ handleData }: Props) {
   const isMobile = useMobile();
   const windowSize = useWindowSize();
   const [mobileView, setMobileView] = React.useState<
@@ -232,24 +237,22 @@ export function SimpleEditor({handleData}:Props) {
     overlayHeight: toolbarRef.current?.getBoundingClientRect().height ?? 0,
   });
 
+  React.useEffect(() => {
+    if (!editor) return;
 
-  React.useEffect(()=>{
-    if(!editor) return;
-
-    const updateContent = ()=>{
+    const updateContent = () => {
       const json = editor.getJSON();
       handleData(json);
-    }
+    };
 
-    updateContent();//initial push
+    updateContent(); //initial push
 
-    editor.on("update",updateContent);
+    editor.on("update", updateContent);
 
-    return ()=>{
-      editor.off("update",updateContent);
-    }
-
-  },[editor,handleData]);
+    return () => {
+      editor.off("update", updateContent);
+    };
+  }, [editor, handleData]);
 
   React.useEffect(() => {
     if (!isMobile && mobileView !== "main") {
@@ -259,27 +262,26 @@ export function SimpleEditor({handleData}:Props) {
 
   return (
     <EditorContext.Provider value={{ editor }}>
-
       <Toolbar
         ref={toolbarRef}
         style={
           isMobile
-          ? {
-            bottom: `calc(100% - ${windowSize.height - bodyRect.y}px)`,
-          }
-          : {}
+            ? {
+                bottom: `calc(100% - ${windowSize.height - bodyRect.y}px)`,
+              }
+            : {}
         }
-        >
+      >
         {mobileView === "main" ? (
           <MainToolbarContent
-          onHighlighterClick={() => setMobileView("highlighter")}
-          onLinkClick={() => setMobileView("link")}
-          isMobile={isMobile}
+            onHighlighterClick={() => setMobileView("highlighter")}
+            onLinkClick={() => setMobileView("link")}
+            isMobile={isMobile}
           />
         ) : (
           <MobileToolbarContent
-          type={mobileView === "highlighter" ? "highlighter" : "link"}
-          onBack={() => setMobileView("main")}
+            type={mobileView === "highlighter" ? "highlighter" : "link"}
+            onBack={() => setMobileView("main")}
           />
         )}
       </Toolbar>
