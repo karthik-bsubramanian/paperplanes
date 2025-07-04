@@ -4,7 +4,7 @@ import { PublishedBlogsCard } from "../components/publishedBlogsCard";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { BACKEND_URL } from "../../config";
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { Following } from "../components/FollowingCard";
@@ -12,6 +12,7 @@ import { jwtDecode } from "jwt-decode";
 import { SavedPosts } from "../components/SavedPosts";
 import { useFollow } from "../hooks/useFollow";
 import { Loading } from "../components/Loading";
+import { useHydratedUser } from "../hooks/HydratedUser";
 
 type profileData = {
   image: string;
@@ -32,6 +33,8 @@ type jwtPayload = {
 }
 
 export const Profile = () => {
+    const { user, hydrated } = useHydratedUser();
+
   const [activeTab, setActiveTab] = useState("Home");
   const [userData, setUserData] = useState<profileData | null>(null);
   const [searchParams] = useSearchParams();
@@ -87,6 +90,8 @@ const { data: publishedBlogs = [], isLoading: publishedBlogsLoading } =useQuery<
     enabled: !!paramid
   });
       
+  if (!hydrated) return <Loading/>
+  if (!user) return <Navigate to="/" replace />;
   if (loading) {
     return <Loading/>;
   }

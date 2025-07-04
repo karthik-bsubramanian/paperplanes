@@ -4,8 +4,13 @@ import { Navbar } from "../components/Navbar";
 import { Card } from "../components/Card";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
+import { Navigate } from "react-router-dom";
+import { Loading } from "../components/Loading";
+import { useHydratedUser } from "../hooks/HydratedUser";
 
 export function Topic() {
+    const { user, hydrated } = useHydratedUser();
+
   // const scrollRef = useRef<HTMLDivElement>(null);
 
   // const scroll = (direction: "left" | "right") => {
@@ -97,6 +102,9 @@ export function Topic() {
   const contentToRender = loading
   ? Array(6).fill({sample:'karthik'})
   : content;
+
+  if (!hydrated) return <Loading/>
+  if (!user) return <Navigate to="/" replace />;
 
   return (
     <div>

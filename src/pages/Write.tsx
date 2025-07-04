@@ -8,9 +8,13 @@ import type { JSONContent } from "@tiptap/react";
 import { useAtomValue } from "jotai";
 import { topicState } from "../jotai/atom";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { Loading } from "../components/Loading";
+import { useHydratedUser } from "../hooks/HydratedUser";
 
 export function Write() {
+    const { user, hydrated } = useHydratedUser();
+
   const [jsonData, setJsonData] = useState<JSONContent | null>(null);
   const topic = useAtomValue(topicState);
   if (topic.topicId == 0) topic.topicId = 1; //fallback if user did not select any topic
@@ -65,6 +69,9 @@ export function Write() {
   useEffect(() => {
     document.title = "New story - PaperPlanes";
   }, []);
+
+  if (!hydrated) return <Loading/>
+  if (!user) return <Navigate to="/" replace />;
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">

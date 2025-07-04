@@ -9,14 +9,8 @@ import { Home } from "./pages/Home";
 import { NotFound } from "./pages/404NotFound";
 import "react-loading-skeleton/dist/skeleton.css";
 import { AuthInit } from "./auth/AuthInit";
-import { ProtectedRoutes } from "./auth/ProtectedRoutes";
-import { useAtomValue } from "jotai";
-import { userState } from "./jotai/atom";
 
 function App() {
-  const user = useAtomValue(userState);
-  const isAuthenticated = !!user;
-
   return (
     <>
       <BrowserRouter>
@@ -24,54 +18,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Signin />} />
 
-            <Route
-              path="/home"
-              element={
-                <ProtectedRoutes isAuthenticated={isAuthenticated}>
-                  <Home />
-                </ProtectedRoutes>
-              }
-            />
-            <Route
-              path="/home/view"
-              element={
-                <ProtectedRoutes isAuthenticated={isAuthenticated}>
-                  <Blog />
-                </ProtectedRoutes>
-              }
-            />
-            <Route
-              path="/home/write"
-              element={
-                <ProtectedRoutes isAuthenticated={isAuthenticated}>
-                  <Write />
-                </ProtectedRoutes>
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoutes isAuthenticated={isAuthenticated}>
-                  <Profile />
-                </ProtectedRoutes>
-              }
-            />
-            <Route
-              path="/topics"
-              element={
-                <ProtectedRoutes isAuthenticated={isAuthenticated}>
-                  <Topic />
-                </ProtectedRoutes>
-              }
-            />
-            <Route
-              path="*"
-              element={
-                <ProtectedRoutes isAuthenticated={isAuthenticated}>
-                  <NotFound />
-                </ProtectedRoutes>
-              }
-            />
+            <Route path="/home" element={<Home />} />
+            <Route path="/home/view" element={<Blog />} />
+            <Route path="/home/write" element={<Write />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/topics" element={<Topic />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthInit>
       </BrowserRouter>

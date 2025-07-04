@@ -5,8 +5,13 @@ import { Featured } from "./Featured";
 import { Following} from "./Following";
 import { About } from "./About";
 import { Search } from "../components/Search";
+import { Navigate } from "react-router-dom";
+import { useHydratedUser } from "../hooks/HydratedUser";
+import { Loading } from "../components/Loading";
 
 export const Home = () => {
+    const { user, hydrated } = useHydratedUser();
+
   const tabs = ["Featured", "Following", "Topics"];
 
   const [activeTab, setActiveTab] = useState("Featured");
@@ -36,6 +41,9 @@ export const Home = () => {
   useEffect(()=>{
     document.title = "single place to share all of your thoughts and knowledge"
   },[])
+
+   if (!hydrated) return <Loading/>
+  if (!user) return <Navigate to="/" replace />;
 
   return (
     <div className="bg-sandal h-max min-h-screen">

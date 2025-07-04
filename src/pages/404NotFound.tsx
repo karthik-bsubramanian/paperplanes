@@ -1,8 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import fallbackimage from "../assets/404.png";
 import paperplanes from "../assets/paperplanes.png";
+import { useHydratedUser } from "../hooks/HydratedUser";
+import { Loading } from "../components/Loading";
 export const NotFound = () => {
-    const navigate = useNavigate();
+  const { user, hydrated } = useHydratedUser();
+  const navigate = useNavigate();
+
+  if (!hydrated) return <Loading/>
+  if (!user) return <Navigate to="/" replace />;
+  
   return (
     <div className="max-h-screen">
       <div className="flex h-11 top-0 items-center text-green font-normal text-sm justify-between">

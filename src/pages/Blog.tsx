@@ -22,11 +22,15 @@ import { useEffect, useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import { Loading } from "../components/Loading";
+import { useHydratedUser } from "../hooks/HydratedUser";
 
 export function Blog() {
+  const { user, hydrated } = useHydratedUser();
+
+  
   const [content, setContent] = useState<JSONContent | null>(null);
   const [searchParams] = useSearchParams();
   const postId = searchParams.get('postid')
@@ -75,6 +79,9 @@ export function Blog() {
       editor.commands.setContent(content.content as JSONContent);
     }
   }, [editor, content]);
+
+  if (!hydrated) return <Loading/>
+  if (!user) return <Navigate to="/" replace />;
 
   if (!content || !editor) {
     return <Loading/>
