@@ -55,7 +55,7 @@ export const Card = ({
       </div>
 
       <h1
-        onClick={() => !loading && navigate(`/home/view?postid=${blogId}`)}
+        onClick={() => !loading && navigate(`/blog/${blogId}`)}
         className="pt-3 text-2xl font-semibold px-1 text-green line-clamp-4 cursor-pointer hover:underline"
       >
         {loading ? <Skeleton count={3} /> : title}

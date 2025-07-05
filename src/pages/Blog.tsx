@@ -18,11 +18,12 @@ import { TrailingNode } from "@/components/tiptap-extension/trailing-node-extens
 import { ImageUploadNode } from "@/components/tiptap-node/image-upload-node/image-upload-node-extension";
 
 import { Navbar } from "../components/Navbar";
+import { PublicNavbar } from "../components/PublicNavbar";
 import { useEffect, useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import { Loading } from "../components/Loading";
 import { useHydratedUser } from "../hooks/HydratedUser";
@@ -32,7 +33,8 @@ export function Blog() {
 
   const [content, setContent] = useState<JSONContent | null>(null);
   const [searchParams] = useSearchParams();
-  const postId = searchParams.get("postid");
+  const { id } = useParams();
+  const postId = searchParams.get("postid") || id;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,7 +82,6 @@ export function Blog() {
   }, [editor, content]);
 
   if (!hydrated) return <Loading />;
-  if (!user) return <Navigate to="/" replace />;
 
   if (!content || !editor) {
     return <Loading />;
@@ -88,7 +89,11 @@ export function Blog() {
 
   return (
     <div>
-      <Navbar handleOnClick={() => {}} />
+      {user ? (
+        <Navbar handleOnClick={() => {}} />
+      ) : (
+        <PublicNavbar handleOnClick={() => {}} />
+      )}
       <div className="grid grid-cols-3">
         <div className="flex justify-end w-full col-span-2">
           <div className="flex justify-end max-w-2xl prose p-4">
