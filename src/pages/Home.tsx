@@ -5,12 +5,11 @@ import { Featured } from "./Featured";
 import { Following } from "./Following";
 import { About } from "./About";
 import { Search } from "../components/Search";
-import { Navigate } from "react-router-dom";
 import { useHydratedUser } from "../hooks/HydratedUser";
 import { Loading } from "../components/Loading";
 
 export const Home = () => {
-  const { user, hydrated } = useHydratedUser();
+  const { hydrated } = useHydratedUser();
 
   const tabs = ["Featured", "Following", "Topics"];
 

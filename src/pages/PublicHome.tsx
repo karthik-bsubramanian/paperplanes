@@ -1,6 +1,6 @@
 import { PublicNavbar } from "../components/PublicNavbar";
 import cornerimg from "../assets/home.png";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Featured } from "./Featured";
 import { Search } from "../components/Search";
 import { Loading } from "../components/Loading";

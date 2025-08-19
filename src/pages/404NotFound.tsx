@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import fallbackimage from "../assets/404.png";
 import paperplanes from "../assets/paperplanes.png";
 import { useHydratedUser } from "../hooks/HydratedUser";

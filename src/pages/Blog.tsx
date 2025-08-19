@@ -23,7 +23,7 @@ import { useEffect, useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import { Loading } from "../components/Loading";
 import { useHydratedUser } from "../hooks/HydratedUser";
