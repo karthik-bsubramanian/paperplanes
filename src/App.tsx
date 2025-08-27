@@ -11,10 +11,12 @@ import { NotFound } from "./pages/404NotFound";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import "react-loading-skeleton/dist/skeleton.css";
 import { AuthInit } from "./auth/AuthInit";
+import { MobileNotice } from "./components/MobileNotice";
 
 function App() {
   return (
     <>
+      <MobileNotice />
       <BrowserRouter>
         <AuthInit>
           <Routes>
